@@ -10,7 +10,7 @@ urlpatterns = [
     path('AssignMate_icon.png', RedirectView.as_view(url=staticfiles_storage.url('images/AssignMate_icon.png'))),
 
     path('', views.courses_list,
-         name='courses_list'),  # Список всех домашних заданий, доступных пользователю
+         name='courses_list'),
 
     path('courses/<int:pk>/',
          views.course_detail, name='course_detail'),
@@ -18,7 +18,7 @@ urlpatterns = [
     path('tag/<str:tag_slug>/',
          views.homework_list, name='homework_list_by_tag'),  # Фильтрация домашних заданий по тегу
 
-    path('<int:year>/<int:month>/<int:day>/<slug:homework_slug>/',
+    path('<int:year>/<int:month>/<int:day>/<str:homework_slug>/',
          views.homework_detail,
          name='homework_detail'),
 

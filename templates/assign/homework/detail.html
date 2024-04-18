@@ -5,12 +5,12 @@
 
 {% block content %}
 <h1 type="homework_title">
-    {{ homework.title }} 
+    {{ homework.title }}
 
     {% if request.user == homework.author or request.user.is_staff %}
     <form method="post" action="{% url 'assign:delete_homework' homework.id %}">
     {% csrf_token %}
-    <input style="background-color: #a02626;" type="submit" value="Удалить" />
+        <input style="background-color: #a02626;" type="submit" value="Удалить" />
     </form>
     {% endif %}
 </h1>
@@ -54,6 +54,12 @@
                 {% if is_teacher %}
                     <a href="{% url 'assign:review_homework' solution.id %}">Оценить решение</a>
                 {% endif %}
+                {% if request.user == solution.student %}
+                <form method="post" action="{% url 'assign:delete_solution' solution.id %}">
+                    {% csrf_token %}
+                    <input type="submit" value="Удалить" style="background-color: #a02626;" />
+                  </form>
+                {% endif %}    
             </div>
         </li>
     {% endfor %}

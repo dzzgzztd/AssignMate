@@ -171,14 +171,14 @@ def submit_solution(request, homework_id):
 def delete_solution(request, solution_id):
     solution = get_object_or_404(HomeworkSolution, id=solution_id, student=request.user)
     if request.method == 'POST':
+        homework = solution.homework
         solution.delete()
-        return redirect('assign:homework_list')  # Или другой URL, куда нужно перейти после удаления
+        return redirect('assign:homework_detail', year=homework.publish.year, month=homework.publish.month, day=homework.publish.day, homework_slug=homework.slug)
     else:
         return render(request, 'assign/homework/confirm_delete.html', {
             'solution': solution,
             'homework': solution.homework  # Добавляем объект homework в контекст
         })
-
 
 @login_required
 def add_homework(request):
